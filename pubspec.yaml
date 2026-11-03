@@ -128,7 +128,7 @@ dependencies:
   open_filex: ^4.1.1
   flustars: ^2.0.1
 #  dio_smart_retry: ^7.0.1
-  flutter_smart_dialog: ^4.5.4
+  flutter_smart_dialog: ^5.3.0
   system_proxy: #^0.1.0
     git:
       url: https://github.com/af-ffr/system_proxy.git
