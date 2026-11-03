@@ -57,7 +57,7 @@ jobs:
           subprocess.run(['ditto', '-c', '-k', '--sequesterRsrc', '--keepParent',
                           str(payload), 'build/Eros-FE-1.9.2-567-unsigned.ipa'], check=True)
           PY
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: Eros-FE-1.9.2-567-unsigned
           path: build/Eros-FE-1.9.2-567-unsigned.ipa
