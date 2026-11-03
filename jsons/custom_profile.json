@@ -1,0 +1,15 @@
+{
+  "uuid": "",
+  "name": "chs",
+  "searchText?": [],
+  "listTypeValue?": "",
+  "catsTypeValue?": "",
+  "cats?": 0,
+  "enableAdvance?": false,
+  "advSearchTypeValue?": "",
+  "advSearch?": "$advance_search",
+  "listModeValue?": "list",
+  "hideTab?": false,
+  "aggregateGroups?": ["", ""],
+  "lastEditTime?": 1234
+}

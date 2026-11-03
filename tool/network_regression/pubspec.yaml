@@ -1,0 +1,9 @@
+name: eros_network_regression
+publish_to: none
+environment:
+  sdk: '>=3.9.0 <4.0.0'
+dependencies:
+  dio: 5.9.0
+  cookie_jar: 4.0.8
+dev_dependencies:
+  test: ^1.25.0

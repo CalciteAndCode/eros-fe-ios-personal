@@ -1,0 +1,131 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+    id 'com.google.gms.google-services'
+//    id 'com.google.firebase.crashlytics'
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+if (keystorePropertiesFile.exists()) {
+    keystorePropertiesFile.withReader('UTF-8') { reader ->
+        keystoreProperties.load(reader)
+    }
+}
+
+def _keyAlias = System.getenv("KEY_ALIAS") ?: keystoreProperties.getProperty("keyAlias")
+def _keyPassword = System.getenv("KEY_PASSWORD") ?: keystoreProperties.getProperty("keyPassword")
+def _storeFile = file(System.getenv("KEYSTORE") ?: keystoreProperties.getProperty("storeFile") ?: "keystore.jks")
+def _storePassword = System.getenv("KEYSTORE_PASSWORD") ?: keystoreProperties.getProperty("storePassword")
+
+android {
+    // ndkVersion "27.0.12077973"
+    compileSdkVersion 35
+    namespace 'com.honjow.fehviewer'
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+//    kotlin {
+//        jvmToolchain(8)
+//    }
+
+    defaultConfig {
+        applicationId "com.honjow.fehviewer"
+        minSdkVersion flutter.minSdkVersion
+        //noinspection EditedTargetSdkVersion
+        targetSdkVersion 36
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+        archivesBaseName = "Eros-FE_$versionName+$versionCode"
+        splits {
+            abi {
+                enable true
+                reset()
+                universalApk true
+                //noinspection ChromeOsAbiSupport
+                include "armeabi-v7a", "arm64-v8a", "x86_64"
+            }
+        }
+    }
+    signingConfigs {
+        debug {
+            storeFile _storeFile
+            storePassword _storePassword
+            keyAlias _keyAlias
+            keyPassword _keyPassword
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+        release {
+            storeFile _storeFile
+            storePassword _storePassword
+            keyAlias _keyAlias
+            keyPassword _keyPassword
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+
+    buildTypes {
+        release {
+            if (signingConfigs.release.storePassword != null){
+                signingConfig signingConfigs.release
+            }
+            minifyEnabled true
+            shrinkResources true
+        }
+        debug {
+            if (signingConfigs.debug.storePassword != null){
+                signingConfig signingConfigs.debug
+            }
+            minifyEnabled true
+            shrinkResources true
+        }
+    }
+
+    lint {
+        disable 'InvalidPackage'
+    }
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    implementation "androidx.startup:startup-runtime:1.2.0"
+    implementation 'com.google.mlkit:barcode-scanning:17.3.0'
+}
+
+configurations.configureEach {
+    resolutionStrategy {
+        force 'androidx.core:core-ktx:1.6.0'
+    }
+}
+
+ext {
+    compileSdkVersion   = 36
+    targetSdkVersion    = 36
+    appCompatVersion    = "2.1.0"
+}

@@ -1,0 +1,77 @@
+Eros-FE 本地修订版 1.9.2 (567)
+整理日期：2026-11-03（香港时间）
+基于 erosTeam/eros_fe master：2fe86b7375a0268f53998249193f38f74148dade
+
+这份源码已包含主分支的 Cloudflare 登录补丁，并作了以下修正：
+1. 请求超时按毫秒解释。EX 连接/发送/接收超时分别为 15/8/25 秒。
+2. 图片数据流也有无数据超时，避免收到响应头后一直等待。
+3. 文件关闭后才通知下载完成，支持服务器不返回 Content-Length；等待异步入库/保存操作结束。
+4. 修正 Android SAF 文件复制的等待和错误处理。
+5. Cloudflare 验证页改为简短提示，下载遇到验证时暂停，不再当作图片链接失效反复刷新。
+6. 「设置 → EH → 网页验证」可在当前 EH/EX 站点手动完成验证，再点「完成」。
+7. 网页验证和普通请求使用同一个 Cookie 缓存；保留验证 Cookie 的域名、路径、过期时间，避免 EH/EX/论坛相互覆盖。
+8. 无进度重试保留 45 秒宽限，连续最多自动恢复 3 次；清理定时器、限制速度历史长度，消除无期限等待 showKey 的路径。
+9. 增加不依赖原作者私有密钥的 GitHub Actions iOS 构建流程。
+
+没有 Mac，如何构建
+-----------------
+不需要自备 Mac，也不需要自己先租云端 Mac。GitHub Actions 在构建时会自动提供临时 macOS 机器。
+需要你自己的 GitHub 账号，并在你自己有写入权限的仓库运行。
+
+方式一：使用「changed_files.zip」覆盖自己的 Fork（文件较少）
+1. 登录 GitHub，打开 https://github.com/erosTeam/eros_fe ，点 Fork，创建自己的副本。
+2. 解压 changed_files.zip；这个包只有相对主分支新增/修改的文件。
+3. 在自己的仓库使用 Add file → Upload files，把解压后的文件和文件夹拖进去，保留目录结构。
+   必须包括 .github/workflows/personal-ios.yml；不要只把 ZIP 文件上传到仓库，也不要连同解压后的最外层文件夹一起上传。
+   如果网页上传没有保留文件夹，改用下面的 GitHub Desktop 方式。
+4. 提交到默认分支后，进入自己的仓库 Actions。
+5. 首次使用 Fork 的 Actions 如提示启用，先启用。
+6. 选择「Build personal iOS IPA」→ Run workflow → 选择分支 → Run workflow。
+7. 构建成功后，在该次运行的 Artifacts 下载「Eros-FE-1.9.2-567-unsigned」。
+8. 解压构建产物，获得 Eros-FE-1.9.2-567-unsigned.ipa。
+
+方式二：用 Windows 上的 GitHub Desktop 提交完整源码
+1. Fork 原仓库后，用 GitHub Desktop 把自己的 Fork 克隆到电脑。
+2. 解压 source.zip，将 eros_fe_fixed 文件夹内的源码覆盖到刚克隆的仓库，包含 .github 文件夹。
+   本源码包没有 .git 文件夹，不要删除自己克隆出来的 .git。
+3. 在 GitHub Desktop 中查看变更，Commit，再 Push origin。
+4. 然后按方式一第 4—8 步运行构建。
+
+原项目的自动发布工作流已限制为只在原作者仓库运行，避免个人 Fork 因缺少作者的 git-crypt 密钥失败。
+新增流程只手动运行、只上传构建产物，不自动发布 Release。
+个人构建脚本使用空的可选服务配置，保留已有明文个人配置，不需要作者的私钥。
+
+关于安装
+--------
+编译和签名是两步。这个流程生成未签名 IPA，不能直接点文件安装到普通 iPhone。
+你需要用支持导入自定义 IPA 的签名/侧载方式安装；你现在安装 1.9.2 的工具是否支持，需要看该工具本身。
+默认使用源码中的开发 Bundle ID dev2.cn.honjow.fehv，可能与官方发布版并存；旧 App 的登录和下载记录不会自动迁移到另一个 App。
+安装后，在 App 内通过 Web 网页登录重新登录；切换 EX 后如有验证提示，再使用「设置 → EH → 网页验证」。
+验证期间保持同一网络/代理节点。如果 Safari 和 App 都无法访问，仍需排查当前网络或站点验证，代码修改不能保证解决这部分问题。
+
+验证与限制
+----------
+已用本机 HTTP 测试服务器运行 15 项 Dart 网络/下载回归检查，全部通过。
+同一组测试已在独立 Dart 3.13.7 和云端流程所用 Flutter 3.41.7 / Dart 3.11.5 上通过。
+覆盖已知/未知大小、gzip、空文件、截断响应、取消、流无数据超时、回调错误，以及 Cloudflare 和普通 403 的区分。
+另有 1 项 Python 配置准备检查通过，GitHub Actions 配置通过 actionlint。
+build_runner 与 intl_utils 的代码生成步骤已在本机执行成功。
+改动的 Flutter/Dart 文件已静态检查：无编译错误；旧代码仍有 10 条未使用变量等警告，未作无关清理。
+尚未在 macOS 上完成 iOS 原生构建，也未在你的 iPhone 上实测；云端构建成功和实际联网效果需要后续确认。
+
+复查网络测试（无需 Mac）
+----------------------
+在装有 Dart 的终端进入 tool/network_regression：
+    dart pub get
+    dart test
+    python test_prepare_personal_build.py
+
+在有 Mac 的环境手动构建时，可参考 .github/workflows/personal-ios.yml；先运行：
+    python3 scripts/prepare_personal_build.py
+然后安装 Flutter 3.41.7、Xcode 和 CocoaPods，按工作流执行依赖、生成代码和构建命令。
+
+资料
+----
+Flutter iOS 环境：https://docs.flutter.dev/platform-integration/ios/setup
+GitHub 托管运行器：https://docs.github.com/en/actions/how-tos/manage-runners/github-hosted-runners/use-github-hosted-runners
+Cloudflare 修复来源：https://github.com/erosTeam/eros_fe/commit/063e7cd

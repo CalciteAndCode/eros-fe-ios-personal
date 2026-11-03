@@ -1,0 +1,21 @@
+{
+  "ehConfig": "$eh_config",
+  "user": "$user",
+  "lastLogin": "",
+  "locale": "",
+  "theme": "",
+  "searchText": [],
+  "localFav": "$local_fav",
+  "enableAdvanceSearch": false,
+  "advanceSearch": "$advance_search",
+  "dnsConfig": "$dns_config",
+  "downloadConfig": "$download_config",
+  "autoLock": "$auto_lock",
+  "webdav?": "$webdav_profile",
+  "favConfig?": "$fav_config",
+  "customTabConfig?": "$custom_tab_config",
+  "tabConfig?": "$tab_config",
+  "layoutConfig?": "$layout_config",
+  "blockConfig?": "$block_config",
+  "mysqlConfig?": "$mysql_config"
+}

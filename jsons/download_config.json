@@ -1,0 +1,9 @@
+{
+  "preloadImage?": 5,
+  "multiDownload?": 3,
+  "downloadLocation?" : "",
+  "downloadOrigImage?": false,
+  "downloadOrigImageType?": "",
+  "allowMediaScan?": false,
+  "concurrentGalleries?": 1
+}

@@ -1,0 +1,65 @@
+name: Build personal iOS IPA
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: personal-ios-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.7'
+          channel: stable
+          cache: true
+      - name: Prepare personal configuration
+        run: |
+          python3 tool/network_regression/test_prepare_personal_build.py
+          python3 scripts/prepare_personal_build.py
+      - name: Resolve dependencies and generate sources
+        run: |
+          flutter config --no-enable-swift-package-manager
+          flutter pub get
+          dart run build_runner build --delete-conflicting-outputs
+          dart run intl_utils:generate
+      - name: Run network regression tests
+        working-directory: tool/network_regression
+        run: |
+          dart pub get
+          dart test
+      - name: Build unsigned iOS app
+        run: |
+          cd ios
+          pod install --repo-update
+          cd ..
+          flutter build ios --release --no-codesign --no-pub
+      - name: Package unsigned IPA
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import shutil
+          import subprocess
+          apps = list(Path('build/ios/iphoneos').glob('*.app'))
+          if len(apps) != 1:
+              raise SystemExit(f'Expected one iOS app, found {len(apps)}')
+          payload = Path('build/personal-ipa/Payload')
+          payload.mkdir(parents=True, exist_ok=True)
+          shutil.copytree(apps[0], payload / apps[0].name, symlinks=True)
+          subprocess.run(['ditto', '-c', '-k', '--sequesterRsrc', '--keepParent',
+                          str(payload), 'build/Eros-FE-1.9.2-567-unsigned.ipa'], check=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Eros-FE-1.9.2-567-unsigned
+          path: build/Eros-FE-1.9.2-567-unsigned.ipa
+          if-no-files-found: error
+          retention-days: 14

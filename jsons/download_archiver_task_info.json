@@ -1,0 +1,18 @@
+{
+  "tag?": "",
+  "gid?": "1234",
+  "type?": "",
+  "title?": "",
+  "taskId?": "",
+  "savedDir?": "",
+  "fileName?": "",
+  "url?": "",
+  "imgUrl?": "",
+  "galleryUrl?": "",
+  "dowmloadType?": "",
+  "status?": 1,
+  "progress?": 100,
+  "timeCreated?": 123,
+  "resolution?": "1280x",
+  "safUri?": ""
+}

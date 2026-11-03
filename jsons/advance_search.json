@@ -1,0 +1,12 @@
+{
+  "requireGalleryTorrent?": false,
+  "browseExpungedGalleries?": false,
+  "searchWithMinRating?": true,
+  "minRating?": 2,
+  "searchBetweenPage?": true,
+  "startPage?": "",
+  "endPage?": "",
+  "disableCustomFilterLanguage?": false,
+  "disableCustomFilterUploader?": false,
+  "disableCustomFilterTags?": false
+}

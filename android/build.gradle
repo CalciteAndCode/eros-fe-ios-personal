@@ -1,0 +1,56 @@
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+// 临时解决依赖子项目的问题
+subprojects {
+    afterEvaluate { project ->
+        if (project.plugins.hasPlugin("com.android.application") ||
+                project.plugins.hasPlugin("com.android.library")) {
+            def javaVersion = JavaVersion.VERSION_17
+            project.android {
+                // 解决 error: resource android:attr/lStar not found
+                compileSdkVersion 36
+                // buildToolsVersion "35.0.0"
+                defaultConfig {
+                    minSdkVersion flutter.minSdkVersion
+                }
+
+                // 解决 namespace 问题
+                if (namespace == null) {
+                    namespace project.group
+                }
+
+                compileOptions {
+                    sourceCompatibility javaVersion
+                    targetCompatibility javaVersion
+                }
+                tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+                    kotlinOptions {
+                        jvmTarget = javaVersion.toString()
+                    }
+                }
+            }
+        }
+    }
+}
+
+rootProject.buildDir = '../build'
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(':app')
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
