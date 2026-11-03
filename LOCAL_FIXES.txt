@@ -17,6 +17,8 @@ Eros-FE 本地修订版 1.9.2 (567)
 -----------------
 不需要自备 Mac，也不需要自己先租云端 Mac。GitHub Actions 在构建时会自动提供临时 macOS 机器。
 需要你自己的 GitHub 账号，并在你自己有写入权限的仓库运行。
+本次已创建公开仓库：https://github.com/CalciteAndCode/eros-fe-ios-personal 。
+你可以直接进入该仓库 Actions 重新构建，无需重复下面的 Fork 和覆盖步骤。
 
 方式一：使用「changed_files.zip」覆盖自己的 Fork（文件较少）
 1. 登录 GitHub，打开 https://github.com/erosTeam/eros_fe ，点 Fork，创建自己的副本。
@@ -56,8 +58,13 @@ Eros-FE 本地修订版 1.9.2 (567)
 覆盖已知/未知大小、gzip、空文件、截断响应、取消、流无数据超时、回调错误，以及 Cloudflare 和普通 403 的区分。
 另有 1 项 Python 配置准备检查通过，GitHub Actions 配置通过 actionlint。
 build_runner 与 intl_utils 的代码生成步骤已在本机执行成功。
+另外已对整个 lib 目录静态检查，无编译错误。
 改动的 Flutter/Dart 文件已静态检查：无编译错误；旧代码仍有 10 条未使用变量等警告，未作无关清理。
-尚未在 macOS 上完成 iOS 原生构建，也未在你的 iPhone 上实测；云端构建成功和实际联网效果需要后续确认。
+已于 2026-11-03 在 GitHub Actions 的 macOS 机器上完成 iOS 原生编译、打包和上传。
+已下载并检查 IPA 完整性，版本为 1.9.2 (567)，Bundle ID 为 dev2.cn.honjow.fehv，最低 iOS 版本为 15.6。
+构建记录：https://github.com/CalciteAndCode/eros-fe-ios-personal/actions/runs/41560640092
+对应源码提交：255ec862a4e9e95465c140f820f74653f3598998。
+安装包未签名，仍需签名安装；尚未在你的 iPhone 上实测，实际 EX 联网效果需要安装后确认。
 
 复查网络测试（无需 Mac）
 ----------------------

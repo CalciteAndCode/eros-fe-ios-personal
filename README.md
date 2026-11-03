@@ -1,4 +1,9 @@
 # Eros-FE
+
+> Personal iOS build **1.9.2+567**, based on [erosTeam/eros_fe](https://github.com/erosTeam/eros_fe).
+>
+> Cloud build verified on 2026-11-03. Get this modified build from [Actions](https://github.com/CalciteAndCode/eros-fe-ios-personal/actions/workflows/personal-ios.yml), and see [LOCAL_FIXES.txt](LOCAL_FIXES.txt) for changes and instructions. The IPA is unsigned and requires signing before installation.
+
 English | [简体中文](https://github.com/erosTeam/eros_fe/blob/master/README_cn.md)
 
 ## Introduction

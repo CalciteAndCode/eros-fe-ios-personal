@@ -1,4 +1,9 @@
 # Eros-FE
+
+> 个人 iOS 修订版 **1.9.2+567**，基于 [erosTeam/eros_fe](https://github.com/erosTeam/eros_fe)。
+>
+> 已于 2026-11-03 通过云端编译。此修订版请从 [Actions](https://github.com/CalciteAndCode/eros-fe-ios-personal/actions/workflows/personal-ios.yml) 获取，修改和使用说明见 [LOCAL_FIXES.txt](LOCAL_FIXES.txt)。生成的 IPA 未签名，需要签名后安装。
+
 [English](https://github.com/erosTeam/eros_fe/blob/master/README.md) | 简体中文
 
 ## 应用简介
