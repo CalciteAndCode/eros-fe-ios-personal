@@ -191,7 +191,7 @@ dependencies:
   flutter_keyboard_visibility: ^6.0.0
   extended_nested_scroll_view: ^6.0.0
   shared_storage: ^0.8.0
-  mime: ^2.0.0
+  mime: ^2.1.0
   saf:
     git:
       url: https://github.com/honjow/saf.git
