@@ -410,6 +410,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.8"
+  cupertino_ui:
+    dependency: transitive
+    description:
+      name: cupertino_ui
+      sha256: e003b87afde18cb396ec15928c7894063d64af04462c68df9a1404c461316dd2
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.5"
   custom_pop_up_menu:
     dependency: "direct main"
     description:
@@ -916,10 +924,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_smart_dialog
-      sha256: "0852df132cb03fd8fc5144eb404c31eb7eb50c22aecb1cc2504f2f598090d756"
+      sha256: "2f50b6b120da18ceb59df42ee057e2f608a1776267203359b832e469c45a406b"
       url: "https://pub.dev"
     source: hosted
-    version: "4.9.8+9"
+    version: "5.3.0"
   flutter_socks_proxy:
     dependency: "direct main"
     description:
@@ -1156,10 +1164,10 @@ packages:
     dependency: "direct main"
     description:
       name: intl
-      sha256: "3df61194eb431efc39c4ceba583b95633a403f46c9fd341e550ce0bfa50e9aa5"
+      sha256: "1ca20c894b1717686a2319b8548763d812bc0aabdac580420a44c5178c57a867"
       url: "https://pub.dev"
     source: hosted
-    version: "0.20.2"
+    version: "0.20.3"
   intl_utils:
     dependency: "direct dev"
     description:
@@ -1411,14 +1419,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.13.0"
+  material_ui:
+    dependency: transitive
+    description:
+      name: material_ui
+      sha256: feb289df1e5f9ed9522f9fe3d909432a7f7bc76943f16abad09f80a16cd25196
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.9.0"
   meta:
     dependency: transitive
     description:
       name: meta
-      sha256: "23f08335362185a5ea2ad3a4e597f1375e78bce8a040df5c600c8d3552ef2394"
+      sha256: "307249ce4ff29d58a18e97f6345f539382eb9c9c29ecda628900f31de0443dd9"
       url: "https://pub.dev"
     source: hosted
-    version: "1.17.0"
+    version: "1.19.0"
   mime:
     dependency: "direct main"
     description:
@@ -2248,10 +2264,10 @@ packages:
     dependency: transitive
     description:
       name: vector_math
-      sha256: d530bd74fea330e6e364cda7a85019c434070188383e1cd8d9777ee586914c5b
+      sha256: fa49e1674cb84acb900141714e6c6e1f9ae099827c24d141430ff6819db4e1bc
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.0"
+    version: "2.4.4"
   vibration:
     dependency: "direct main"
     description:
